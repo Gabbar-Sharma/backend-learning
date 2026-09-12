@@ -4,16 +4,36 @@ const port = 3000
 app.use(express.json())
 const products = []
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+
+  const response = res.json({
+    massage: "Products fetched successfully",
+    data: products
+  })
+  console.log(response)
 })
 
 
-app.post("/product", (req, res) =>{
-     console.log("REQUEST BODY:", req.body);
-        res.send(req.body);
-        products.push(req.body)
+app.post("/create", (req, res) => {
 
-        res.status(201).json
+    const body = req.body;
+
+    console.log("REQUEST BODY:", body);
+
+    products.push(body);
+
+    res.status(201).json({
+        message: "Product created successfully",
+        data: body
+    });
+});
+
+app.delete("/delete:id", (req, res) => {
+    const id = Number(req.params.id);
+    const userData = products.filter((val) => val.id !== id)
+    products = userData
+    products.length = 0;
+    products.push(...userData);
+    res.send(userData)
 })
 
 app.listen(port, () => {

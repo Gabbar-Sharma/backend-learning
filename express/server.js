@@ -11,12 +11,8 @@ app.get('/', (req, res) => {
   })
   console.log(response)
 })
-
-
 app.post("/create", (req, res) => {
-
     const body = req.body;
-
     console.log("REQUEST BODY:", body);
 
     products.push(body);

@@ -1,26 +1,38 @@
-const express = require('express');
-const NotesModel = require('./models/noteModel');
-const app = express()
-app.use(express.json())
+const express = require("express");
+const NotesModel = require("./models/noteModel");
 
-app.get("/", (req , res) =>{
-   res.send("Notes create...")
-})
+const app = express();
 
+app.use(express.json());
 
-app.post("/create", async(req, res) =>{
-     const {title, description} = req.body
+app.get("/", (req, res) => {
+    res.send("Notes API is running...");
+});
 
-     const newNotes = await NotesModel.create({
-        title,
-        description,
-     })
-    res.send({
-        success: true,
-        message: "Notes create successfully",
-        data: newNotes,
+app.post("/create", async (req, res) => {
+    try {
+        const { title, description } = req.body;
 
-    })
-})
+        const newNote = await NotesModel.create({
+            title,
+            description,
+        });
 
-module.exports = app; 
+        res.status(201).json({
+            success: true,
+            message: "Note created successfully",
+            data: newNote,
+        });
+
+    } catch (error) {
+        console.error("Create note error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to create note",
+            error: error.message,
+        });
+    }
+});
+
+module.exports = app;

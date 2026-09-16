@@ -1,9 +1,13 @@
 const express = require("express");
 const NotesModel = require("./models/noteModel");
 const NotesRoute = require("./routes/route")
+const cors = require("cors")
 
 const app = express();
 
+app.use(cors({
+    origin:"http://localhost:5173"
+}))
 app.use(express.json());
 app.use("/api/notes", NotesRoute)
 

@@ -1,9 +1,11 @@
 const express = require("express");
 const NotesModel = require("./models/noteModel");
+const NotesRoute = require("./routes/route")
 
 const app = express();
 
 app.use(express.json());
+app.use("/api/notes", NotesRoute)
 
 app.get("/", (req, res) => {
     res.send("Notes API is running...");

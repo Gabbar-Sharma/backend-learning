@@ -6,7 +6,7 @@ const {
   updatedNotesController,
   deleteNoteController,
   singleEntityUpdateController,
-} = require("../controllers/notes.controller");
+} = require("../controllers/noteController");
 
 const router = express.Router();
 

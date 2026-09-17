@@ -1,5 +1,6 @@
 import { useNotes } from "../../hooks/useNotes"
 import NoteCard from "../components/NoteCard";
+import NoteForm from "../components/NoteForm";
 
 function Notes() {
     
@@ -24,6 +25,8 @@ function Notes() {
             <h1 className="text-3xl font-bold text-white mb-6">
                 My Notes
             </h1>
+
+            <NoteForm/>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
 

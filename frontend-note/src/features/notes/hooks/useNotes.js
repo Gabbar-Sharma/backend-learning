@@ -5,6 +5,7 @@ import { getAllApi } from "../../../api/notesApi";
 export const useNotes = () =>{
     return useQuery({
         queryKey: ["notes"],
-        queryFn: getAllApi
+        queryFn: getAllApi,
+        staleTime: 5000,
     })
 }

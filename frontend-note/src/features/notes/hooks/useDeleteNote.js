@@ -9,12 +9,12 @@ const useDeleteNote = () =>{
         mutationFn: deleteNoteApi,
         onSuccess: () =>{
             queryClient.invalidateQueries({
-                queryKey:[ "/notes"]
+                queryKey: ["notes"],
             })
 
         },
-         onError: (error) => {
-            console.log("Delete note error:", error);
+        onError: (error) => {
+            console.log("Update note error:", error);
         },
     })
 }

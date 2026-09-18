@@ -36,7 +36,7 @@ function useNoteForm() {
     const onSubmit = (data) => {
 console.log("Form data:", data);
          createNoteMutation.mutate(data)
-        reset();
+    
     };
       
 

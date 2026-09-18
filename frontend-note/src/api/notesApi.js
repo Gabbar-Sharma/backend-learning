@@ -15,8 +15,14 @@ const deleteNoteApi = async(id) => {
 
     return response.data
 }
+ 
+const updateNoteApi = async({id, data}) =>{
+    const response = await axiosInstance.put(`${id}`, data)
+    return response.data
+}
 export {
     getAllApi,
     createNoteApi,
-    deleteNoteApi
+    deleteNoteApi,
+    updateNoteApi
 };

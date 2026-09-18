@@ -1,8 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
+
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [search, setSearch] = useState("");
+    
+     const navigate = useNavigate()
 
     const handleClearSearch = () => {
         setSearch("");
@@ -149,6 +153,7 @@ const Navbar = () => {
                     <div className="hidden items-center gap-1 md:flex">
 
                         <button
+                             onClick={() => navigate("/notes")}
                             className="
                                 rounded-xl
                                 px-3
@@ -202,6 +207,7 @@ const Navbar = () => {
 
                         {/* New Note */}
                         <button
+                            onClick={() => navigate("/create")}
                             className="
                                 ml-2
                                 flex

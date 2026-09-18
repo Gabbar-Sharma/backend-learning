@@ -1,6 +1,6 @@
 import { useNotes } from "../../hooks/useNotes"
 import NoteCard from "../components/NoteCard";
-import NoteForm from "../components/NoteForm";
+
 
 function Notes() {
     
@@ -8,7 +8,7 @@ function Notes() {
         isLoading,
         isError,
         error,
-      } = useNotes
+      } = useNotes()
 
          if (isLoading) {
         return <h1>Loading...</h1>;
@@ -26,7 +26,7 @@ function Notes() {
                 My Notes
             </h1>
 
-            <NoteForm/>
+   
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
 

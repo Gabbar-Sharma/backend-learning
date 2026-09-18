@@ -1,4 +1,11 @@
-const NoteCard = ({ note, onUpdate, onDelete }) => {
+import useDeleteNote from "../../hooks/useDeleteNote";
+
+const NoteCard = ({ note }) => {
+    const {
+        mutate: deleteNote,
+        isPending,
+
+    } = useDeleteNote()
     return (
         <div className="bg-slate-900 border border-slate-800 rounded-xl p-5">
             
@@ -12,17 +19,18 @@ const NoteCard = ({ note, onUpdate, onDelete }) => {
 
             <div className="flex gap-3 mt-5">
                 <button
-                    onClick={() => onUpdate(note)}
+                    
                     className="px-4 py-2 rounded-lg bg-blue-600 text-white"
                 >
                     Update
                 </button>
 
                 <button
-                    onClick={() => onDelete(note._id)}
-                    className="px-4 py-2 rounded-lg bg-red-600 text-white"
+                    onClick={() => deleteNote(note._id)}
+                    disabled={isPending}
+                    className="px-4 py-2 rounded-lg bg-red-600 text-white disabled:opacity-50"
                 >
-                    Delete
+                    {isPending ? "Deleting..." : "Delete"}
                 </button>
             </div>
         </div>

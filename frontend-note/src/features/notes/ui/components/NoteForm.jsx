@@ -8,6 +8,7 @@ const NoteForm = () => {
         reset,
         errors,
         onSubmit,
+        isCreating
     } = useNoteForm();
 
    
@@ -89,9 +90,10 @@ const NoteForm = () => {
 
                         <button
                             type="submit"
-                            className="px-5 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium transition"
+                            disabled={isCreating}
+                            className="px-5 py-3 bg-blue-600 rounded-lg text-white hover:bg-blue-700 transition disabled:opacity-50"
                         >
-                            Create Note
+                            {isCreating ? "Creating..." : "Create Note"}
                         </button>
 
                     </div>

@@ -22,7 +22,9 @@ const Navbar = () => {
                 <div className="flex h-16 items-center justify-between gap-4">
 
                     {/* LOGO */}
-                    <div className="flex shrink-0 items-center gap-2">
+                    <div
+                    onClick={() => navigate('/home')}
+                     className="flex shrink-0 items-center cursor-pointer gap-2">
 
                         <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-slate-950">
 

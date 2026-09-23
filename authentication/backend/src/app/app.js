@@ -59,4 +59,23 @@ app.post("/api/register", async(req, res) => {
   }
 });
 
+app.post("/api/login", async(req, res) =>{
+    try{
+        const {email, password} = req.body
+        const isValidUser = await User.findOne({email})
+
+        if(!isValidUser){
+            return res.status(200).json({
+                message: "Internal server error aa gya yaar"
+            })
+        }
+        const isMatch = bcrypt.compare(
+            password,
+            user.password
+        )
+    }catch(error){
+        console.log(error)
+    }
+})
+
 export default app;

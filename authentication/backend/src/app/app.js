@@ -1,7 +1,8 @@
 import express from "express";
 import jwt from "jsonwebtoken";
-import userModel from './models/auth.model.js'
-import bcrypt from 'bcryptjs'
+import userModel from "./models/auth.model.js";
+import bcrypt from "bcryptjs";
+import authenticate from "./middlewere/auth.middlewere.js";
 
 const app = express();
 
@@ -19,28 +20,28 @@ app.get("/api", (req, res) => {
   }
 });
 
-app.get('/api/me', async(req, res) =>{
-    const authHeader = req.headers.authorization
-    const data = jwt.decode(authHeader)
-    console.log(data)
-    const user = await userModel.findById(data.id)
-    console.log(user)
-})
+app.get("/api/me", authenticate, (req, res) => {
+  return res.status(200).json({
+    user: req.user,
+  });
+});
 
-app.post("/api/register", async(req, res) => {
+app.post("/api/register", async (req, res) => {
   try {
     const { email, name, password } = req.body;
 
     // save data on mongodb
-  const user = await userModel.create({
-    name, email, password: await bcrypt.hash(password, 10)
-   })
+    const user = await userModel.create({
+      name,
+      email,
+      password: await bcrypt.hash(password, 10),
+    });
     // token create here
     const token = jwt.sign(
       {
-      id: user._id
+        id: user._id,
       },
-      "frKTcYPV8y6wQkxi0AHYxnljCx5ELcCXuffhr1Y9b13"
+      "frKTcYPV8y6wQkxi0AHYxnljCx5ELcCXuffhr1Y9b13",
     );
 
     return res.status(201).json({
@@ -48,7 +49,7 @@ app.post("/api/register", async(req, res) => {
       user: {
         email,
         name,
-        id: user._id
+        id: user._id,
       },
       token,
     });
@@ -59,40 +60,33 @@ app.post("/api/register", async(req, res) => {
   }
 });
 
-app.post("/api/login", async(req, res) =>{
-    try{
-        const {email, password} = req.body
-        const isValidUser = await User.findOne({email})
+app.post("/api/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const isValidUser = await User.findOne({ email });
 
-        if(!isValidUser){
-            return res.status(200).json({
-                message: "Internal server error aa gya yaar"
-            })
-        }
-        const isMatch = bcrypt.compare(
-            password,
-            user.password
-        )
-         if (!isMatch) {
+    if (!isValidUser) {
+      return res.status(200).json({
+        message: "Internal server error aa gya yaar",
+      });
+    }
+    const isMatch = bcrypt.compare(password, user.password);
+    if (!isMatch) {
       return res.status(401).json({
         message: "Invalid email or password",
       });
     }
-        const token = jwt.sign(
-            {id: user._id},
-            JWT_SECRET
-        )
-        return res.status(200).json({
+    const token = jwt.sign({ id: user._id }, JWT_SECRET);
+    return res.status(200).json({
       message: "Login successful",
       token,
     });
-
-    }catch(error){
-        console.log(error)
-         return res.status(500).json({
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
       message: "Internal server error",
     });
-    }
-})
+  }
+});
 
 export default app;

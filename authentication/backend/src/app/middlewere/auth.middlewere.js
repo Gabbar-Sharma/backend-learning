@@ -21,6 +21,7 @@ const authenticate = async (req, res, next) => {
         message: "Token not found",
       });
     }
+    
 
     const data = jwt.verify(
       token,

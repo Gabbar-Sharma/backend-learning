@@ -63,21 +63,26 @@ app.post("/api/register", async (req, res) => {
 app.post("/api/login", async (req, res) => {
   try {
     const { email, password } = req.body;
-    const isValidUser = await User.findOne({ email });
+      const user = await userModel.findOne({ email });
 
-    if (!isValidUser) {
+    if (!user) {
       return res.status(200).json({
         message: "Internal server error aa gya yaar",
       });
     }
-    const isMatch = bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(
+  password,
+  user.password
+);
     if (!isMatch) {
       return res.status(401).json({
         message: "Invalid email or password",
       });
     }
-    const token = jwt.sign({ id: user._id }, JWT_SECRET);
-    return res.status(200).json({
+const token = jwt.sign(
+  { id: user._id },
+  process.env.JWT_SECRET
+);    return res.status(200).json({
       message: "Login successful",
       token,
     });

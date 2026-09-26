@@ -2,7 +2,7 @@
 
 import jwt from "jsonwebtoken"
 import User from "../models/user.model.js"
-
+// yeha ek auth function hai
 const authenticate = async(req, res, next) =>{
     try{
      //get Authorization header

@@ -19,8 +19,8 @@ export const registerValidator = [
     .optional()
     .isIn(["customer", "seller"])
     .withMessage("Role must be customer or seller"),
-];
-
+    (req, res ,next) =>{
+    
 const errors = validationResult(req);
 
 if (!errors.isEmpty()) {
@@ -29,3 +29,7 @@ if (!errors.isEmpty()) {
     errors: errors.array(),
   });
 }
+next()
+}
+];
+

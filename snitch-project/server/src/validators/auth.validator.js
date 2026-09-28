@@ -1,6 +1,6 @@
 import { body, validationResult } from "express-validator";
 
-export const registerValidator = [
+ const registerValidator = [
   body("email")
     .trim()
     .notEmpty()
@@ -33,3 +33,4 @@ next()
 }
 ];
 
+export default registerValidator;

@@ -1,6 +1,9 @@
 import { Router } from "router";
+import registerValidator from "../validators/auth.validator";
 
 const router = express.Router()
+
+
 
 
 /** 
@@ -9,3 +12,6 @@ const router = express.Router()
  * @param req.body ={name, email, password}
  * @Response res.status(201) if(successful)
  * */ 
+
+
+router.post("/api/auth/register", registerValidator, )

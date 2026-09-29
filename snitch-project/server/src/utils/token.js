@@ -19,8 +19,15 @@ const generateRefreshToken = (userId) => {
     }
   );
 };
+const verifyRefreshToken = (refreshToken) => {
+  return jwt.verify(
+    refreshToken,
+    process.env.REFRESH_TOKEN_SECRET
+  );
+};
 
 export default {
   generateAccessToken,
   generateRefreshToken,
+  verifyRefreshToken,
 };

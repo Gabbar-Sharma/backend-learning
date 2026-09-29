@@ -1,6 +1,6 @@
-import User from "../models/user.model";
+import User from "../models/user.model.js";
 import bcrypt from 'bcrypt'
-import token from "../utils/token";
+import token from "../utils/token.js";
 
 
 
@@ -20,8 +20,8 @@ const register = async ({ name, email, password }) => {
         name,
         password: hashedPassword,
     })
-    const accessToken = token.generateAccessToken(User._id)
-const refreshToken = token.generateRefreshToken(User._id)
+    const accessToken = token.generateAccessToken(user._id)
+const refreshToken = token.generateRefreshToken(user._id)
 
 
 return{
@@ -31,6 +31,6 @@ return{
   };
 }
 
-export {
+export default {
     register
 }

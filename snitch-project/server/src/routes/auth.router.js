@@ -1,17 +1,14 @@
-import { Router } from "router";
-import registerValidator from "../validators/auth.validator";
+import express from "express";
 
-const router = express.Router()
+import registerValidator from "../validators/auth.validator.js";
+import authController from "../controllers/auth.controller.js";
 
+const router = express.Router();
 
+router.post(
+  "/register",
+  registerValidator,
+  authController.register
+);
 
-
-/** 
- * @POST api/auth/register 
- * @param req express.body
- * @param req.body ={name, email, password}
- * @Response res.status(201) if(successful)
- * */ 
-
-
-router.post("/api/auth/register", registerValidator, )
+export default router;

@@ -1,4 +1,19 @@
-import userSchema from "../models/user.model.js"
+import authService from "../services/auth.service.js";
 
+const register = async (req, res, next) => {
+  try {
+    const result = await authService.register(req.body);
 
-const authController = async(requestAnimationFrame, res )
+    return res.status(201).json({
+      success: true,
+      message: "User registered successfully",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export default {
+  register,
+};

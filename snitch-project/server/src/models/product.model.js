@@ -80,6 +80,11 @@ const productSchema = new mongoose.Schema(
       min: 0,
       default: 0,
     },
+    seller: {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: "User",
+  required: true,
+},
 
     isActive: {
       type: Boolean,

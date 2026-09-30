@@ -47,30 +47,15 @@ const createProductValidator = [
     .isLength({ max: 100 })
     .withMessage("Brand cannot exceed 100 characters"),
 
-  body("images").optional().isArray().withMessage("Images must be an array"),
-
-  body("images.*.url")
-    .if(body("images").exists())
-    .notEmpty()
-    .withMessage("Image URL is required")
-    .bail()
-    .isURL()
-    .withMessage("Invalid image URL"),
-
-  body("images.*.fileId")
-    .if(body("images").exists())
-    .notEmpty()
-    .withMessage("Image fileId is required"),
-
-  body("images.*.alt").optional().trim(),
-
   body("size")
     .optional()
     .isArray()
     .withMessage("Size must be an array")
     .bail()
     .custom((sizes) =>
-      sizes.every((size) => ["XS", "S", "M", "L", "XL", "XXL"].includes(size)),
+      sizes.every((size) =>
+        ["XS", "S", "M", "L", "XL", "XXL"].includes(size)
+      )
     )
     .withMessage("Invalid size"),
 
@@ -80,11 +65,6 @@ const createProductValidator = [
     .bail()
     .isInt({ min: 0 })
     .withMessage("Stock must be a non-negative integer"),
-
-  body("isActive")
-    .optional()
-    .isBoolean()
-    .withMessage("isActive must be a boolean"),
 
   (req, res, next) => {
     const errors = validationResult(req);
@@ -100,4 +80,4 @@ const createProductValidator = [
   },
 ];
 
-export { createProductValidator };
+export default { createProductValidator };

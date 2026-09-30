@@ -5,6 +5,7 @@ const registerValidator = [
     .trim()
     .notEmpty()
     .withMessage("Email is required")
+    .bail()
     .isEmail()
     .withMessage("Please provide a valid email"),
 
@@ -12,6 +13,7 @@ const registerValidator = [
     .trim()
     .notEmpty()
     .withMessage("Password is required")
+    .bail()
     .isLength({ min: 6 })
     .withMessage("Password must be at least 6 characters long"),
 
@@ -39,13 +41,15 @@ const loginValidator = [
     .trim()
     .notEmpty()
     .withMessage("Email is required")
+    .bail()
     .isEmail()
     .withMessage("Please provide a valid email"),
 
   body("password")
     .trim()
     .notEmpty()
-    .withMessage("Password is required"),
+    .withMessage("Password is required")
+    .bail(),
 
   (req, res, next) => {
     const errors = validationResult(req);
@@ -61,7 +65,7 @@ const loginValidator = [
   },
 ];
 
-export  {
+export {
   registerValidator,
   loginValidator,
 };

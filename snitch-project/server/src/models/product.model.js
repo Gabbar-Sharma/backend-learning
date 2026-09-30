@@ -54,10 +54,23 @@ const productSchema = new mongoose.Schema(
           trim: true,
         },
 
+        fileId: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+
         alt: {
           type: String,
           trim: true,
         },
+      },
+    ],
+
+    size: [
+      {
+        type: String,
+        trim: true,
       },
     ],
 
